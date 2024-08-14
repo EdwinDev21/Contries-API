@@ -1,10 +1,12 @@
-import { Box, Grid, GridItem, Image, Text } from "@chakra-ui/react";
-import { useLocation } from "react-router-dom";
-import { Country } from "../types"; // Importar la interfaz Country
+import { Box, Grid, GridItem, Image, Text, Button } from "@chakra-ui/react";
+import { FaArrowLeft } from "react-icons/fa";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Country } from "../types";
 
 function CountryInf() {
   const location = useLocation();
   const country: Country | undefined = location.state?.country; // Obtener el país desde el estado y tiparlo
+  const navigate = useNavigate();
 
   return (
     <>
@@ -21,6 +23,7 @@ function CountryInf() {
           fontSize={20}
           fontWeight="bold"
           area={"header"}
+          position="relative" // Necesario para posicionar el botón
         >
           Where in the world?
         </GridItem>
@@ -34,6 +37,15 @@ function CountryInf() {
             margin="10px"
             flexDirection={{ base: "column", md: "row" }}
           >
+            <Button
+              position="absolute"
+              top="50px"
+              left="100px"
+              onClick={() => navigate(-1)}
+              leftIcon={<FaArrowLeft />}
+            >
+              Back
+            </Button>
             {country ? (
               <Box
                 display="flex"
@@ -52,13 +64,15 @@ function CountryInf() {
                   ml={{ base: "0", md: "20px" }}
                   textAlign={{ base: "center", md: "left" }}
                 >
-                  {" "}
                   <Text fontSize="lg" fontWeight="bold">
                     {country.name.common}
                   </Text>
                   <Text>Population: {country.population}</Text>
                   <Text>Region: {country.region}</Text>
                   <Text>Capital: {country.capital}</Text>
+                  {country.borders && country.borders.length > 0 ? (
+                    <Text>Borders: {country.borders.join(" ")}</Text>
+                  ) : null}
                 </Box>
               </Box>
             ) : (
