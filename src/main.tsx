@@ -2,9 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { ChakraProvider } from "@chakra-ui/react";
 import { HashRouter, Routes, Route } from "react-router-dom";
-import Root from "./routes/Root.tsx";
-import CountryInf from "./routes/CountryInf.tsx";
-import "./index.css";
+import Root from "./routes/Root";
+import CountryInf from "./routes/CountryInf";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <ChakraProvider>
